@@ -41,9 +41,12 @@ namespace MidiPlayer
                 setUpLibrary();
             }
 
-            flp_SongList.Width = this.Width / 2 - 30;
-            flp_PlayList.Width = this.Width / 2 - 30;
+            //flp_SongList.Width = this.Width / 2 - 30;
+            //flp_PlayList.Width = this.Width / 2 - 30;
 
+            flp_SongList.VerticalScroll.Visible = true;
+            flp_PlayList.VerticalScroll.Visible = true;
+     
             updateLibrary();
 
         }
@@ -69,9 +72,8 @@ namespace MidiPlayer
                 songs[name].Text = name;
                 songs[name].Tag = directory;
                 songs[name].AutoSize = false;
-                songs[name].Size = new Size((flp_SongList.Width - 25), 75);
+                songs[name].Size = new Size((flp_SongList.Width - 20), 50);
                 songs[name].Font = new Font(FontFamily.GenericSansSerif, 16);
-                songs[name].Click += songButton_Click;
                 songs[name].MouseDown += songButton_MouseDown;
 
                 flp_SongList.Controls.Add(songs[name]);
@@ -104,12 +106,6 @@ namespace MidiPlayer
             updateLibrary();
         }
 
-        protected void songButton_Click(object sender, EventArgs e)
-        {
-            Button button = sender as Button;
-            Debug.WriteLine("Clicked: " + button.Text);
-        }
-
         protected void PlayListButton_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
@@ -124,9 +120,11 @@ namespace MidiPlayer
 
         private void frm_Main_Resize(object sender, EventArgs e)
         {
+            
             flp_SongList.Width = this.Width / 2 - 30;
             flp_PlayList.Width = this.Width / 2 - 30;
-            rtb_Lyrics.Width = this.Width / 2;
+            pdf_Lyrics.Width = (this.Width / 2)-15;
+            pdf_Lyrics.Location = new Point(flp_SongList.Width + flp_SongList.Location.X + 10, pdf_Lyrics.Location.Y);
             foreach (KeyValuePair<string, Button> entry in songs)
             {
                 entry.Value.Size = new Size((flp_SongList.Width - 25), 75);
@@ -146,7 +144,7 @@ namespace MidiPlayer
             playlist_button.Text = button.Text;
             playlist_button.Tag = button.Tag;
             playlist_button.AutoSize = false;
-            playlist_button.Size = new Size((flp_PlayList.Width - 25), 75);
+            playlist_button.Size = new Size((flp_PlayList.Width - 10), 30);
             playlist_button.Font = new Font(FontFamily.GenericSansSerif, 16);
             playlist_button.Click += PlayListButton_Click;
 

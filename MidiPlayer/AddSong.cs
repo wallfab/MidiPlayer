@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Office.Interop.Word;
 
 namespace MidiPlayer
 {
@@ -36,7 +37,7 @@ namespace MidiPlayer
         private void ofd_Song_FileOk(object sender, CancelEventArgs e)
         {
             btn_Song.BackColor = Color.LightGreen;
-            tb_Songname.Text = ofd_Song.SafeFileName.Remove(ofd_Song.SafeFileName.IndexOf('.'));
+            tb_Songname.Text = ofd_Song.SafeFileName.Remove(ofd_Song.SafeFileName.IndexOf('.')).Trim();
             this.Song = true;
         }
 
@@ -70,7 +71,15 @@ namespace MidiPlayer
                     File.Copy(ofd_Song.FileName, Path.Combine(songFolder, tb_Songname.Text + ".mid"));
                     if(Lyrics)
                     {
-                        File.Copy(ofd_Lyrics.FileName, Path.Combine(songFolder, tb_Songname.Text + ".doc"));
+                        Microsoft.Office.Interop.Word.Document wordDocument;
+                        Microsoft.Office.Interop.Word.Application appWord = new Microsoft.Office.Interop.Word.Application();
+                        Debug.WriteLine(ofd_Lyrics.FileName);
+                        wordDocument = appWord.Documents.Open(@""+ ofd_Lyrics.FileName);
+                        wordDocument.SaveAs2(Path.Combine(songFolder, tb_Songname.Text + ".pdf"), WdSaveFormat.wdFormatPDF);
+                        ((_Document)wordDocument).Close(WdSaveOptions.wdDoNotSaveChanges);
+                        wordDocument = null;
+                        ((_Application)appWord).Quit();
+                        appWord = null;
                     }   
                 }
                 catch (Exception ex)
