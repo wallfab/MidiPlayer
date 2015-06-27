@@ -6304,4 +6304,13 @@
         AAD7wQAA++EAAPv9AAD7/QAA+/0AAPv9AAD4/QAA+AEAAPgBAAD4AQAA/AEAAP+BAAA=
 </value>
   </data>
+  <metadata name="sequencer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>305, 17</value>
+  </metadata>
+  <metadata name="sequence1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>506, 17</value>
+  </metadata>
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>419, 17</value>
+  </metadata>
 </root>

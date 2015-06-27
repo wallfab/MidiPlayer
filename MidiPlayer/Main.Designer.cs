@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Main));
             this.ms_MainMenu = new System.Windows.Forms.MenuStrip();
             this.tsmi_file = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,11 +43,14 @@
             this.flp_SongList = new System.Windows.Forms.FlowLayoutPanel();
             this.flp_PlayList = new System.Windows.Forms.FlowLayoutPanel();
             this.pdf_Lyrics = new AxAcroPDFLib.AxAcroPDF();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btn_Play = new System.Windows.Forms.Button();
+            this.btn_Pause = new System.Windows.Forms.Button();
+            this.btn_Stop = new System.Windows.Forms.Button();
+            this.btn_Slower = new System.Windows.Forms.Button();
+            this.btn_Faster = new System.Windows.Forms.Button();
+            this.sequencer1 = new Sanford.Multimedia.Midi.Sequencer();
+            this.sequence1 = new Sanford.Multimedia.Midi.Sequence();
+            this.timer1 = new Sanford.Multimedia.Timers.Timer(this.components);
             this.ms_MainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsw_LibraryWatcher)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pdf_Lyrics)).BeginInit();
@@ -77,6 +81,7 @@
             this.tsmi_settings.Name = "tsmi_settings";
             this.tsmi_settings.Size = new System.Drawing.Size(145, 22);
             this.tsmi_settings.Text = "Einstellungen";
+            this.tsmi_settings.Click += new System.EventHandler(this.tsmi_settings_Click);
             // 
             // tsmi_quit
             // 
@@ -173,73 +178,94 @@
             this.pdf_Lyrics.Size = new System.Drawing.Size(436, 401);
             this.pdf_Lyrics.TabIndex = 9;
             // 
-            // button1
+            // btn_Play
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = global::MidiPlayer.Properties.Resources.button_play_small;
-            this.button1.Location = new System.Drawing.Point(442, 434);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 75);
-            this.button1.TabIndex = 10;
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_Play.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Play.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Play.Image = global::MidiPlayer.Properties.Resources.button_play_small;
+            this.btn_Play.Location = new System.Drawing.Point(442, 434);
+            this.btn_Play.Name = "btn_Play";
+            this.btn_Play.Size = new System.Drawing.Size(112, 75);
+            this.btn_Play.TabIndex = 10;
+            this.btn_Play.Text = " ";
+            this.btn_Play.UseVisualStyleBackColor = true;
+            this.btn_Play.Click += new System.EventHandler(this.btn_Play_Click);
             // 
-            // button2
+            // btn_Pause
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Image = global::MidiPlayer.Properties.Resources.button_pause_small;
-            this.button2.Location = new System.Drawing.Point(560, 434);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 75);
-            this.button2.TabIndex = 11;
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_Pause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Pause.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Pause.Image = global::MidiPlayer.Properties.Resources.button_pause_small;
+            this.btn_Pause.Location = new System.Drawing.Point(560, 434);
+            this.btn_Pause.Name = "btn_Pause";
+            this.btn_Pause.Size = new System.Drawing.Size(75, 75);
+            this.btn_Pause.TabIndex = 11;
+            this.btn_Pause.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btn_Stop
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Image = global::MidiPlayer.Properties.Resources.button_stop_small;
-            this.button3.Location = new System.Drawing.Point(641, 434);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 75);
-            this.button3.TabIndex = 12;
-            this.button3.UseVisualStyleBackColor = true;
+            this.btn_Stop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Stop.Image = global::MidiPlayer.Properties.Resources.button_stop_small;
+            this.btn_Stop.Location = new System.Drawing.Point(641, 434);
+            this.btn_Stop.Name = "btn_Stop";
+            this.btn_Stop.Size = new System.Drawing.Size(75, 75);
+            this.btn_Stop.TabIndex = 12;
+            this.btn_Stop.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btn_Slower
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Image = global::MidiPlayer.Properties.Resources.button_slower_small;
-            this.button4.Location = new System.Drawing.Point(722, 434);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 75);
-            this.button4.TabIndex = 13;
-            this.button4.Text = "+";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btn_Slower.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Slower.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Slower.Image = global::MidiPlayer.Properties.Resources.button_slower_small;
+            this.btn_Slower.Location = new System.Drawing.Point(722, 434);
+            this.btn_Slower.Name = "btn_Slower";
+            this.btn_Slower.Size = new System.Drawing.Size(75, 75);
+            this.btn_Slower.TabIndex = 13;
+            this.btn_Slower.Text = "+";
+            this.btn_Slower.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btn_Faster
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Image = global::MidiPlayer.Properties.Resources.button_faster_small;
-            this.button5.Location = new System.Drawing.Point(803, 434);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 75);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "+";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btn_Faster.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Faster.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Faster.Image = global::MidiPlayer.Properties.Resources.button_faster_small;
+            this.btn_Faster.Location = new System.Drawing.Point(803, 434);
+            this.btn_Faster.Name = "btn_Faster";
+            this.btn_Faster.Size = new System.Drawing.Size(75, 75);
+            this.btn_Faster.TabIndex = 14;
+            this.btn_Faster.Text = "+";
+            this.btn_Faster.UseVisualStyleBackColor = true;
+            // 
+            // sequencer1
+            // 
+            this.sequencer1.Position = 0;
+            this.sequencer1.Sequence = this.sequence1;
+            this.sequencer1.PlayingCompleted += new System.EventHandler(this.sequencer1_PlayingCompleted);
+            this.sequencer1.ChannelMessagePlayed += new System.EventHandler<Sanford.Multimedia.Midi.ChannelMessageEventArgs>(this.sequencer1_ChannelMessagePlayed);
+            // 
+            // sequence1
+            // 
+            this.sequence1.Format = 1;
+            // 
+            // timer1
+            // 
+            this.timer1.Mode = Sanford.Multimedia.Timers.TimerMode.Periodic;
+            this.timer1.Period = 1;
+            this.timer1.Resolution = 1;
+            this.timer1.SynchronizingObject = null;
+            this.timer1.Stopped += new System.EventHandler(this.timer1_Stopped);
             // 
             // frm_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(890, 521);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_Faster);
+            this.Controls.Add(this.btn_Slower);
+            this.Controls.Add(this.btn_Stop);
+            this.Controls.Add(this.btn_Pause);
+            this.Controls.Add(this.btn_Play);
             this.Controls.Add(this.flp_PlayList);
             this.Controls.Add(this.flp_SongList);
             this.Controls.Add(this.pdf_Lyrics);
@@ -252,6 +278,7 @@
             this.MinimumSize = new System.Drawing.Size(906, 560);
             this.Name = "frm_Main";
             this.Text = "MidiPlayer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frm_Main_FormClosing);
             this.Load += new System.EventHandler(this.frm_Main_Load);
             this.Resize += new System.EventHandler(this.frm_Main_Resize);
             this.ms_MainMenu.ResumeLayout(false);
@@ -278,11 +305,14 @@
         private System.Windows.Forms.FlowLayoutPanel flp_SongList;
         private System.Windows.Forms.FlowLayoutPanel flp_PlayList;
         private AxAcroPDFLib.AxAcroPDF pdf_Lyrics;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_Faster;
+        private System.Windows.Forms.Button btn_Slower;
+        private System.Windows.Forms.Button btn_Stop;
+        private System.Windows.Forms.Button btn_Pause;
+        private System.Windows.Forms.Button btn_Play;
+        private Sanford.Multimedia.Midi.Sequencer sequencer1;
+        private Sanford.Multimedia.Midi.Sequence sequence1;
+        private Sanford.Multimedia.Timers.Timer timer1;
     }
 }
 

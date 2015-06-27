@@ -35,6 +35,9 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Sanford.Multimedia.Midi">
+      <HintPath>..\..\..\Downloads\Sanford.Multimedia.Midi-master (1)\Sanford.Multimedia.Midi-master\Midi\bin\Release\Sanford.Multimedia.Midi.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,6 +64,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddSong.resx">
       <DependentUpon>AddSong.cs</DependentUpon>
     </EmbeddedResource>
@@ -77,6 +86,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -99,15 +111,6 @@
     <None Include="Resources\button_play_small.png" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="AcroPDFLib">
-      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="AxAcroPDFLib">
       <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
       <VersionMajor>1</VersionMajor>
