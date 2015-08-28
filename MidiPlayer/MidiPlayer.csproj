@@ -35,8 +35,9 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Sanford.Multimedia.Midi">
-      <HintPath>..\..\..\Downloads\Sanford.Multimedia.Midi-master (1)\Sanford.Multimedia.Midi-master\Midi\bin\Release\Sanford.Multimedia.Midi.dll</HintPath>
+    <Reference Include="Sanford.Multimedia.Midi, Version=5.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Downloads\Sanford.Multimedia.Midi-master\Sanford.Multimedia.Midi-master\Midi\bin\Release\Sanford.Multimedia.Midi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
